@@ -29,10 +29,10 @@
       });
 
       // İlk efekt yükle
+      document.getElementById("maskBtn").addEventListener("click", async ()=>{
       await deepAR.switchEffect("mask", "https://cdn.jsdelivr.net/npm/deepar/effects/aviators");  // örnek efekt URL
 
-      document.getElementById("maskBtn").addEventListener("click", async ()=>{
-        await deepAR.switchEffect("mask", "https://cdn.jsdelivr.net/npm/deepar/effects/vampire-mask");  // senin efekt URL’n
+    
       });
     })();
   </script>
