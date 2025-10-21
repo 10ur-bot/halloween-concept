@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepAR Halloween Maskesi</title>
+  <style>
+    body { margin:0; overflow:hidden; background:#000; color:#fff; text-align:center;}
+    #preview { width:100vw; height:100vh; }
+    button { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); padding:10px 20px; font-size:18px; background:#ff3c00; border:none; border-radius:8px; color:#000; cursor:pointer;}
+  </style>
+</head>
+<body>
+  <div id="preview"></div>
+  <button id="maskBtn">🎃 Halloween Mask</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/deepar/js/deepar.js"></script>
+  <script>
+    (async function(){
+      const licenseKey = "7cd04810006ddbdbddb6b4bf3dc364700af799c97b752db50c27e72b2ac97d01e7f29c9765fe5879";  // ← buraya senin lisans anahtarın
+      const previewElement = document.getElementById("preview");
+
+      const deepAR = await deepar.initialize({
+        licenseKey: licenseKey,
+        previewElement: previewElement,
+        cameraConfig: {
+          facing: "user"  // arka kamera; ön için "user"
+        }
+      });
+
+      // İlk efekt yükle
+      await deepAR.switchEffect("mask", "https://cdn.jsdelivr.net/npm/deepar/effects/aviators");  // örnek efekt URL
+
+      document.getElementById("maskBtn").addEventListener("click", async ()=>{
+        await deepAR.switchEffect("mask", "https://cdn.jsdelivr.net/npm/deepar/effects/vampire-mask");  // senin efekt URL’n
+      });
+    })();
+  </script>
+</body>
+</html>
