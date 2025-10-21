@@ -1,22 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Cursed Mirror — Halloween Edition</title>
-<style>
-  body { margin:0; overflow:hidden; font-family:sans-serif; background:#000; color:#fff; text-align:center;}
-  #preview { width:100%; height:100vh; object-fit:cover; }
-  #buttons { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px;}
-  button { padding:8px 12px; border:none; border-radius:6px; background:#ff3c00; color:#fff; cursor:pointer; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cursed Mirror — Halloween</title>
+  <style>
+    body { margin:0; overflow:hidden; background:#000; color:#fff; font-family:sans-serif; text-align:center; }
+    #preview { width:100%; height:100vh; object-fit:cover; }
+    #buttons { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px; }
+    button { padding:8px 12px; border:none; border-radius:6px; background:#ff3c00; color:#fff; cursor:pointer; }
+  </style>
 </head>
 <body>
   <h1>🪞 The Cursed Mirror 🩸</h1>
   <video id="preview" autoplay playsinline></video>
   <div id="buttons">
-    <button data-effect="/FireEffect.zip">Fire Effect</button>
-    <button data-effect="/FireEffect.zip">Fire Effect</button>
+    <button data-effect="/FireEffect.zip">Vampire Mask</button>
+    <button data-effect="/FireEffect.zip">Monster Mask</button>
   </div>
 
   <!-- DeepAR Web SDK -->
@@ -27,23 +27,28 @@
     const buttons = document.querySelectorAll("button[data-effect]");
 
     async function startCamera() {
+      // DeepAR initialize
       deepAR = await DeepAR.initialize({
         licenseKey: "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458",
         previewElement: video,
-        effect: "/FireEffect.zip", // varsayılan
+        effect: "/FireEffect.zip",
         cameraConfig: { facingMode: "user" } // ön kamera
       });
       deepAR.start();
+
+      // Butonlarla efekt değiştirme
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const path = btn.dataset.effect;
+          deepAR.switchEffect(path);
+        });
+      });
     }
 
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const path = btn.dataset.effect;
-        deepAR.switchEffect(path); // efekti değiştir
-      });
+    // Sayfa yüklendikten sonra başlat
+    window.addEventListener("load", () => {
+      startCamera();
     });
-
-    startCamera();
   </script>
 </body>
 </html>
