@@ -7,32 +7,38 @@
   <style>
     body { margin:0; overflow:hidden; background:#000; color:#fff; text-align:center;}
     #preview { width:100vw; height:100vh; }
-    button { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); padding:10px 20px; font-size:18px; background:#ff3c00; border:none; border-radius:8px; color:#000; cursor:pointer;}
+    button { position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+             padding:10px 20px; font-size:18px; background:#ff3c00; border:none;
+             border-radius:8px; color:#000; cursor:pointer;}
   </style>
 </head>
 <body>
   <div id="preview"></div>
   <button id="maskBtn">🎃 Halloween Mask</button>
 
-  <!-- Eski DeepAR JS SDK -->
+  <!-- Eski DeepAR JS SDK (ücretsiz demo) -->
   <script src="https://cdn.jsdelivr.net/npm/deepar/js/deepar.js"></script>
   <script>
     (async function(){
-      const licenseKey = "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458";  
+      const licenseKey = "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458";  // DeepAR ücretsiz demo key veya domain key
       const previewElement = document.getElementById("preview");
 
       // Kamera ve DeepAR initialize
       const deepAR = await deepar.initialize({
         licenseKey: licenseKey,
         previewElement: previewElement,
-        cameraConfig: { facing: "user" } // ön kamera
+        cameraConfig: { facing: "user" } // Ön kamera
       });
 
-      // Butona tıklandığında vampire efektini uygula
+      // Kamera başlatıldı
+      console.log("Kamera çalışıyor, DeepAR initialized.");
+
+      // Butona tıklandığında efekt uygula
       document.getElementById("maskBtn").addEventListener("click", async () => {
+        // ZIP dosyasını public/effects klasörüne koy
         await deepAR.switchEffect("mask", "/Fire_Effect.zip");
+        console.log("Efekt uygulandı!");
       });
-
     })();
   </script>
 </body>
