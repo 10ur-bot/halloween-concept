@@ -29,7 +29,7 @@
 
       // Kamera açılır açılmaz efekt yükle
       try {
-        await deepAR.switchEffect("/Fire_Effect.deepar",, {slot: "face"});
+        await deepAR.switchEffect("/Fire_Effect.deepar", {slot: "face"});
         console.log("Fire Effect otomatik yüklendi!");
       } catch(e) {
         console.error("Efekt yüklenemedi:", e);
