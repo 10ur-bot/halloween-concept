@@ -3,36 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeepAR Halloween Maskesi</title>
+  <title>DeepAR Halloween Mask — Otomatik</title>
   <style>
-    body { margin:0; overflow:hidden; background:#000; color:#fff; text-align:center;}
+    body { margin:0; overflow:hidden; background:#000; }
     #preview { width:100vw; height:100vh; }
-    button { position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-             padding:10px 20px; font-size:18px; background:#ff3c00; border:none;
-             border-radius:8px; color:#000; cursor:pointer;}
+    p { position:absolute; bottom:10px; width:100%; text-align:center; color:#fff; font-family:sans-serif; }
   </style>
 </head>
 <body>
   <div id="preview"></div>
-  <button id="maskBtn">🎃 Halloween Mask</button>
+  <p>(Demo lisans ile watermark çıkabilir)</p>
 
-  <!-- Eski DeepAR JS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/deepar/js/deepar.js"></script>
   <script>
     (async function(){
-      const licenseKey = "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458";  // DeepAR dashboard’dan alacağın lisans
+      const licenseKey = "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458"; // DeepAR dashboard’dan alacağın key
       const previewElement = document.getElementById("preview");
 
+      // DeepAR başlat
       const deepAR = await deepar.initialize({
         licenseKey: licenseKey,
         previewElement: previewElement,
-        cameraConfig: { facing: "user" } // ön kamera
+        cameraConfig: { facing: "user" } // Ön kamera
       });
 
-      document.getElementById("maskBtn").addEventListener("click", async () => {
+      // Kamera açılır açılmaz efekt yükle
+      try {
         await deepAR.switchEffect("mask", "Fire_Effect.zip");
-        console.log("Vampire mask efekt yüklendi!");
-      });
+        console.log("Vampire mask otomatik yüklendi!");
+      } catch(e) {
+        console.error("Efekt yüklenemedi:", e);
+      }
     })();
   </script>
 </body>
