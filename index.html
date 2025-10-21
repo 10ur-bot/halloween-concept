@@ -14,26 +14,25 @@
   <div id="preview"></div>
   <button id="maskBtn">🎃 Halloween Mask</button>
 
+  <!-- Eski DeepAR JS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/deepar/js/deepar.js"></script>
   <script>
     (async function(){
-      const licenseKey = "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458";  // ← buraya senin lisans anahtarın
+      const licenseKey = "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458";  
       const previewElement = document.getElementById("preview");
 
+      // Kamera ve DeepAR initialize
       const deepAR = await deepar.initialize({
         licenseKey: licenseKey,
         previewElement: previewElement,
-        cameraConfig: {
-          facing: "user"  // arka kamera; ön için "user"
-        }
+        cameraConfig: { facing: "user" } // ön kamera
       });
 
-      // İlk efekt yükle
-      document.getElementById("maskBtn").addEventListener("click", async ()=>{
-      await deepAR.switchEffect("mask", "https://cdn.jsdelivr.net/npm/deepar/effects/aviators");  // örnek efekt URL
-
-    
+      // Butona tıklandığında vampire efektini uygula
+      document.getElementById("maskBtn").addEventListener("click", async () => {
+        await deepAR.switchEffect("mask", "effects/vampire.zip");
       });
+
     })();
   </script>
 </body>
