@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeepAR Halloween Mask — Otomatik</title>
+  <title>DeepAR Fire Effect — Halloween</title>
   <style>
     body { margin:0; overflow:hidden; background:#000; }
     #preview { width:100vw; height:100vh; }
@@ -24,13 +24,13 @@
       const deepAR = await deepar.initialize({
         licenseKey: licenseKey,
         previewElement: previewElement,
-        cameraConfig: { facing: "user" } // Ön kamera
+        cameraConfig: { facing: "user" } // Arka kamera
       });
 
       // Kamera açılır açılmaz efekt yükle
       try {
-        await deepAR.switchEffect("mask", "Fire_Effect.zip");
-        console.log("Vampire mask otomatik yüklendi!");
+        await deepAR.switchEffect("mask", "/Fire_Effect.zip");
+        console.log("Fire Effect otomatik yüklendi!");
       } catch(e) {
         console.error("Efekt yüklenemedi:", e);
       }
