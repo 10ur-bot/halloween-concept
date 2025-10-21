@@ -1,40 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeepAR Halloween Maskesi</title>
-  <style>
-    body { margin:0; overflow:hidden; background:#000; color:#fff; text-align:center;}
-    #preview { width:100vw; height:100vh; }
-    button { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); padding:10px 20px; font-size:18px; background:#ff3c00; border:none; border-radius:8px; color:#000; cursor:pointer;}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Cursed Mirror — Halloween Edition</title>
+<style>
+  body { margin:0; overflow:hidden; font-family:sans-serif; background:#000; color:#fff; text-align:center;}
+  #preview { width:100%; height:100vh; object-fit:cover; }
+  #buttons { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px;}
+  button { padding:8px 12px; border:none; border-radius:6px; background:#ff3c00; color:#fff; cursor:pointer; }
+</style>
 </head>
 <body>
-  <div id="preview"></div>
-  <button id="maskBtn">🎃 Halloween Mask</button>
+  <h1>🪞 The Cursed Mirror 🩸</h1>
+  <video id="preview" autoplay playsinline></video>
+  <div id="buttons">
+    <button data-effect="effects/vampire.zip">Vampire Mask</button>
+    <button data-effect="effects/monster.zip">Monster Mask</button>
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/deepar/js/deepar.js"></script>
+  <!-- DeepAR Web SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/deepar/web/deepar.min.js"></script>
   <script>
-    (async function(){
-      const licenseKey = "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458";  // ← buraya senin lisans anahtarın
-      const previewElement = document.getElementById("preview");
+    let deepAR;
+    const video = document.getElementById("preview");
+    const buttons = document.querySelectorAll("button[data-effect]");
 
-      const deepAR = await deepar.initialize({
-        licenseKey: licenseKey,
-        previewElement: previewElement,
-        cameraConfig: {
-          facing: "user"  // arka kamera; ön için "user"
-        }
+    async function startCamera() {
+      deepAR = await DeepAR.initialize({
+        licenseKey: "b76d816da766cc0dafb2481b44a5495123ca9b728fb6ce9dd097dd964c320759ac87dee6feea2458",
+        previewElement: video,
+        effect: "effects/FireEffect.zip", // varsayılan
+        cameraConfig: { facingMode: "user" } // ön kamera
       });
+      deepAR.start();
+    }
 
-      // İlk efekt yükle
-      document.getElementById("maskBtn").addEventListener("click", async ()=>{
-      await deepAR.switchEffect("mask", "https://cdn.jsdelivr.net/npm/deepar/effects/aviators");  // örnek efekt URL
-
-    
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const path = btn.dataset.effect;
+        deepAR.switchEffect(path); // efekti değiştir
       });
-    })();
+    });
+
+    startCamera();
   </script>
 </body>
 </html>
